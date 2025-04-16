@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 專案概述
 
-## Getting Started
+這個專案是一個使用 Next.js 實作的 ToDo List 應用，透過串接後端 API 完成 CRUD 操作。該應用使用 Tailwind CSS 進行樣式設計，並支援響應式網頁設計 (RWD)。此外，本專案使用 TypeScript 進行開發。
 
-First, run the development server:
+## 專案目標
+
+1. 設計任務檢視列表。
+2. 設計新增/編輯任務的表單。
+3. 更新每項任務的完成狀態（已完成/未完成）。
+4. 從列表中移除任務。
+5. 支援響應式網頁設計（RWD）。
+6. 使用 Tailwind CSS 進行排版和樣式設計。
+7. 使用 TypeScript 進行開發。
+
+# 專案結構
+
+```
+app
+  └── tasks                  # /tasks 路由相關頁面
+      ├── layout.tsx         # 任務區域佈局 (提供 Context)
+      ├── page.tsx           # 任務列表頁面
+      ├── new
+      │   └── page.tsx       # 新增任務頁面
+      └── [id]
+           └── edit
+                └── page.tsx # 編輯任務頁面
+
+components
+  ├── Pagination.tsx         # 任務頁面切換元件
+  └── TaskForm.tsx           # 任務表單元件 (新增/編輯共用)
+
+context/
+  └── TaskContext.tsx        # 任務資料的 React Context
+
+lib/
+  └── taskApi.ts             # 任務相關 API 請求函式
+
+types.ts                     # 型別定義 (Task 介面等)
+```
+
+# 開發模式
+
+## 環境設置
+
+1. 確認 Node.js 版本為 `20.9.0`。
+
+```bash
+node -v
+```
+
+2. 進入專案資料夾：
+
+```bash
+cd chen-todo-web
+```
+
+3. 執行開發模式：
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用 Docker 執行
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 建立 Docker 映像檔：
 
-## Learn More
+```bash
+docker build -t chen-next-app .
+```
 
-To learn more about Next.js, take a look at the following resources:
+2. 執行 Docker 容器：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker run -p 3000:3000 chen-next-app
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+這樣您可以在 Docker 環境中啟動應用，並且能夠透過 `localhost:3000` 存取。
